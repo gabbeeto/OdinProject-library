@@ -20,6 +20,13 @@ addBookButton.addEventListener('click', openInterface);
 
 const invisibleInterface = document.querySelector('#invisibleInterface');
 
+
+let tittle;
+let description;
+let pageNumbers;
+let read;
+
+
 function openInterface(){
 invisibleInterface.style.display = 'flex';
 }
@@ -28,6 +35,11 @@ closeButton.addEventListener('click', closeInterface)
 
 function closeInterface(){
 invisibleInterface.style.display = 'none';
+
+tittle.value = '';
+description.value = '';
+pageNumbers.value = '';
+read.checked = false;
 }
 
 const addToLibraryButton = document.querySelector('#invisibleInterface button:last-of-type');
@@ -35,20 +47,26 @@ const addToLibraryButton = document.querySelector('#invisibleInterface button:la
 addToLibraryButton.addEventListener('click', addBookToLibrary)
 
 
-let tittle;
-let description;
-let pageNumbers;
-let read;
 
 function addBookToLibrary() {
   // do stuff here
+
 	tittle = document.querySelector('#title');
 	description = document.querySelector('#description');
 	pageNumbers = document.querySelector('#pageNumbers');
 	read = document.querySelector('#read');
+
+if(pageNumbers.validity.patternMismatch){
+alert('you have to type a number in number of pages yoo!')
+}
+else{
+
 	myLibrary.push(new Book(tittle.value, description.value,Number(pageNumbers.value), read.checked ));
 
 updateMyLibrary();
+closeInterface();
+
+}
 }
 
 
@@ -61,12 +79,12 @@ function updateMyLibrary(){
 libraryOnHtml.innerHTML = '';
 for(let index = 0;index < myLibrary.length; index++){
 
-	alert('this works');
 let editButton = document.createElement('button');
 libraryDiv = document.createElement('div');
 
 editButton.innerText = `edit the '${myLibrary[index].tittle}' book`;
-	
+editButton.id = `i${index}`
+editButton.addEventListener('click', createEditInterface)
 
 let tittle0 = document.createElement('p');
 let tittle1 = document.createElement('p');
@@ -107,4 +125,26 @@ libraryDiv.appendChild(pageNumbers0);
 libraryDiv.appendChild(pageNumbers1);
 }
 
+}
+
+
+const editPopUpContainerForInputs = document.querySelector('section:nth-of-type(2) > div:nth-of-type(2)');
+function createEditInterface(event){
+document.querySelector('section:nth-of-type(2)').style.display = 'flex';
+
+for(let index = 0; index < myLibrary.length;index++){
+if(event.target.id.substring(1, event.target.id.length) == index){
+console.log(`${index}`);
+const tittleParagraph = document.createElement('p')
+tittleParagraph.innerText = 'tittle';
+
+
+const tittleInput = document.createElement('input')
+tittleInput.value = `${myLibrary[index].tittle}`;
+
+editPopUpContainerForInputs.appendChild(tittleParagraph);
+editPopUpContainerForInputs.appendChild(tittleInput);
+}
+
+}
 }

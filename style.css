@@ -7,7 +7,7 @@ box-sizing: border-box;
 :root{
 --black: black;
 --white: white;
-
+--red:#561400;
 --header: 10vh;
 --footer: 5vh;
 --main: calc(100vh - calc(var(--header) + var(--footer) ) )
@@ -16,8 +16,8 @@ box-sizing: border-box;
 :root.dark{
 --black:white;
 --white:black;
+--red:#A33535;
 }
-
 
 /*repetion section*/
 header,footer{
@@ -42,9 +42,46 @@ border-bottom: 2px solid var(--black);
 
 main{
 height: var(--main);
+display: grid;
 }
 
+/*add button*/
+main > button:first-of-type{
+background-color: var(--white);
+color: var(--black);
+border: 2px solid var(--black);
+justify-self: center;
+align-self: start;
+margin: 20px;
+padding: 5px;
+border-radius: 10px;
+}
 
+main section:first-of-type{
+display: grid;
+grid-template: 1fr 1fr / repeat(auto-fit, minmax(180px,1fr));
+gap: 10px;
+}
+
+main section:first-of-type > *{
+border: 2px solid var(--black);
+align-self: center;
+justify-self: center;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 10px;
+border-radius: 10px;
+}
+
+main  section:first-of-type > * > button{
+background-color: var(--white);
+color: var(--black);
+border: 2px solid var(--black);
+padding: 4px;
+border-radius: 7px;
+}
 footer{
 height: var(--footer);
 border-top: 2px solid var(--black);
@@ -57,6 +94,7 @@ position: fixed;
 left: 50vw;
 top:50vh;
 transform: translate(-50%, -50%);
+background-color: var(--white);
 border: 2px solid var(--black);
 padding: 10px;
 border-radius: 20px;
@@ -67,7 +105,7 @@ z-index: 2;
 list-style: none;
 }
 
-#invisibleInterface button:first-of-type{
+#invisibleInterface > button:first-of-type{
 position: absolute;
 right: 4%;
 top: 7%;
@@ -80,7 +118,45 @@ background-color: var(--white);
 color: var(--black);
 }
 
+input[type='text']{
+padding: 2px;
+border-radius: 5px;
+border: 2px solid var(--black);
+background-color: var(--white);
+color: var(--black);
+}
+
+input[type='text']:focus{
+background-color: var(--black);
+color: var(--white);
+border: 2px solid var(--white);
+outline: 0px solid transparent;
+}
+
+input[type='text']:focus:invalid{
+border: 0px solid transparent;
+outline:2px solid var(--red);
+}
+
+input:invalid{
+outline:2px solid var(--red);
+
+}
+
 #invisibleInterface div{
 display: flex;
 flex-direction: row;
+}
+
+#invisibleEditPopUp {
+display: none;
+flex-direction: column;
+position: fixed;
+background-color: var(--white);
+left:50vw;
+top:50vh;
+transform: translate(-50,-50);
+border: 2px solid var(--black);
+padding: 5px;
+border-radius: 10px;
 }

@@ -15,9 +15,13 @@
 
 		<section>
 		</section>
+
 		<div id="invisibleInterface">
 			<button type="button">x</button>
+			<form action="">
 			<ul>
+
+
 			<li>
 				<p>title</p>
 				<input type="text"  id="title">
@@ -28,22 +32,36 @@
 			</li>
 			<li>
 				<p>number of pages</p>
-				<input type="text"  id="pageNumbers">
+				<input type="text"  id="pageNumbers" pattern="[0-9]+">
 			</li>
 			<li>
 				<p> have you read the book?</p>
 				<input type="checkbox"  id="read">
 			</li>
 			</ul>
+
+</form>
+
 			<button>Add To Library</button>
 			<div id="notifier"><p></p></div>
 		</div>
 
+		<section id="invisibleEditPopUp">
+			<div>
+<button>close window</button>
+<button>delete book</button>
+			</div>
+<div>
+</div>
+
+<button>change</button>
+		</section>
 
 	</main>
 <footer>
 <a href="https://gabbeeto.github.io/">
 	<p>&copy;Gabbeeto</p>
+
 
 </a>
 </footer>
