@@ -139,12 +139,23 @@ const tittleParagraph = document.createElement('p')
 tittleParagraph.innerText = 'tittle';
 
 
-const tittleInput = document.createElement('input')
-tittleInput.value = `${myLibrary[index].tittle}`;
-
-editPopUpContainerForInputs.appendChild(tittleParagraph);
-editPopUpContainerForInputs.appendChild(tittleInput);
+createElementForEditPopUp('tittle', index);
+createElementForEditPopUp('description', index);
+createElementForEditPopUp('pageNumbers', index, 'Number of pages');
 }
 
 }
+}
+
+function createElementForEditPopUp(name, index, customParagraph = name){
+
+const createParagraph = document.createElement('p')
+createParagraph.innerText = `${customParagraph}:`;
+
+
+const createInput = document.createElement('input')
+createInput.value = `${myLibrary[index][name]}`;
+
+editPopUpContainerForInputs.appendChild(createParagraph);
+editPopUpContainerForInputs.appendChild(createInput);
 }
