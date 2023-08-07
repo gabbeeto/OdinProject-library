@@ -1,5 +1,10 @@
-function selectElement(name){
+function selectElement(name, type = 'single'){
+if(type == 'all'){
+return document.querySelectorAll(name);
+}
+else{
 return document.querySelector(name);
+}
 }
 
 
@@ -169,9 +174,15 @@ editPopUpContainerForInputs.appendChild(createInput);
 const closeWindowButton = selectElement(`#invisibleEditPopUp div:first-of-type button:first-of-type`);
 closeWindowButton.addEventListener('click', closeWindow );
 
-function closeWindow(event){
+function closeWindow(event, hideParent = false){
 removeElementsFromSecondDiv();
+if(hideParent){
+hideParentWindow(event);
+}
+else{
+
 hideWindow(event)
+}
 }
 
 
@@ -179,10 +190,15 @@ function removeElementsFromSecondDiv(){
 selectElement(`#invisibleEditPopUp div:nth-of-type(2)`).innerHTML = ''
 }
 
+
 let target
 
 function hideWindow(event){
 event.target.parentNode.parentNode.style.display = 'none';
+}
+
+function hideParentWindow(event){
+event.target.parentNode.style.display = 'none';
 }
 
 
@@ -204,4 +220,29 @@ updateMyLibrary();
 closeWindow(event);
 
 
+}
+
+changeButton = selectElement(`#invisibleEditPopUp div + button`);
+changeButton.addEventListener('click', updateLibrary)
+
+function  updateLibrary(event){
+for(let index2 =0;index2 < myLibrary.length; index2++){
+idOfElement = selectElement('#invisibleEditPopUp div:nth-of-type(2) p').id;
+if(index2 == idOfElement.substring(1, idOfElement.length)){
+
+myLibrary[index2].tittle = selectElement(`#invisibleEditPopUp div:nth-of-type(2)  input:first-of-type`).value;
+
+
+myLibrary[index2].description = selectElement(`#invisibleEditPopUp div:nth-of-type(2)  input:nth-of-type(2)`).value;
+
+
+myLibrary[index2].pageNumbers = selectElement(`#invisibleEditPopUp div:nth-of-type(2)  input:nth-of-type(3)`).value;
+}
+
+}
+
+
+
+updateMyLibrary();
+closeWindow(event, hideParent = true);
 }
