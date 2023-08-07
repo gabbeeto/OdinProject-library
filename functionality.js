@@ -1,3 +1,9 @@
+function selectElement(name){
+return document.querySelector(name);
+}
+
+
+
 let myLibrary = [];
 
 function Book(tittle,description, pageNumbers, read) {
@@ -135,9 +141,6 @@ document.querySelector('section:nth-of-type(2)').style.display = 'flex';
 for(let index = 0; index < myLibrary.length;index++){
 if(event.target.id.substring(1, event.target.id.length) == index){
 console.log(`${index}`);
-const tittleParagraph = document.createElement('p')
-tittleParagraph.innerText = 'tittle';
-
 
 createElementForEditPopUp('tittle', index);
 createElementForEditPopUp('description', index);
@@ -151,11 +154,54 @@ function createElementForEditPopUp(name, index, customParagraph = name){
 
 const createParagraph = document.createElement('p')
 createParagraph.innerText = `${customParagraph}:`;
-
+createParagraph.id = `i${index}`
 
 const createInput = document.createElement('input')
 createInput.value = `${myLibrary[index][name]}`;
+createInput.id = `i${index}`
 
 editPopUpContainerForInputs.appendChild(createParagraph);
 editPopUpContainerForInputs.appendChild(createInput);
+}
+
+
+
+const closeWindowButton = selectElement(`#invisibleEditPopUp div:first-of-type button:first-of-type`);
+closeWindowButton.addEventListener('click', closeWindow );
+
+function closeWindow(event){
+removeElementsFromSecondDiv();
+hideWindow(event)
+}
+
+
+function removeElementsFromSecondDiv(){
+selectElement(`#invisibleEditPopUp div:nth-of-type(2)`).innerHTML = ''
+}
+
+let target
+
+function hideWindow(event){
+event.target.parentNode.parentNode.style.display = 'none';
+}
+
+
+
+const deleteWindowButton = selectElement(`#invisibleEditPopUp div:first-of-type button:nth-of-type(2)`);
+deleteWindowButton.addEventListener('click', removeBook );
+
+
+let idOfElement;
+function removeBook(event){
+for(let index2 =0;index2 < myLibrary.length; index2++){
+idOfElement = selectElement('#invisibleEditPopUp div:nth-of-type(2) p').id;
+if(index2 == idOfElement.substring(1, idOfElement.length)){
+myLibrary.splice(index2,1);
+}
+
+}
+updateMyLibrary();
+closeWindow(event);
+
+
 }
